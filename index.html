@@ -368,6 +368,14 @@
     .kv .muted { color: var(--muted); font-size: 13px }
     .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace }
 
+    /* Complaint status badge */
+    .complaint-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 999px; font-size: 13px; font-weight: 700; border: 1px solid; text-transform: capitalize; letter-spacing: .3px }
+    .complaint-badge.pending   { color: var(--warning); background: color-mix(in srgb, var(--warning), transparent 85%); border-color: color-mix(in srgb, var(--warning), transparent 55%) }
+    .complaint-badge.in-progress { color: var(--primary); background: color-mix(in srgb, var(--primary), transparent 85%); border-color: color-mix(in srgb, var(--primary), transparent 55%) }
+    .complaint-badge.resolved  { color: var(--success); background: color-mix(in srgb, var(--success), transparent 85%); border-color: color-mix(in srgb, var(--success), transparent 55%) }
+    .complaint-badge.rejected  { color: var(--danger);  background: color-mix(in srgb, var(--danger),  transparent 85%); border-color: color-mix(in srgb, var(--danger),  transparent 55%) }
+    .complaint-badge.default   { color: var(--muted);   background: color-mix(in srgb, var(--panel),   transparent 4%);  border-color: var(--border) }
+
     .copybox { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 8px; }
     .copybox .mono { padding: 8px 10px; border-radius: 10px; border: 1px solid var(--border); background: color-mix(in srgb, var(--panel), transparent 4%) }
 
@@ -932,6 +940,10 @@ XYZ College, University of Delhi is organising anti ragging week from 12th-18th 
             <div class="muted" style="font-weight:700;margin-bottom:4px">Complaint Description</div>
             <div id="rvDesc" style="white-space:pre-wrap"></div>
           </div>
+          <div class="kv" style="margin-top:8px">
+            <div class="muted">Complaint Status</div>
+            <span id="rvStatusBadge" class="complaint-badge default">—</span>
+          </div>
           <div style="margin-top:8px">
             <div class="muted" style="font-weight:700;margin-bottom:4px">Message from Admin</div>
             <div id="rvAdminMsg" style="white-space:pre-wrap">—</div>
@@ -1094,6 +1106,7 @@ XYZ College, University of Delhi is organising anti ragging week from 12th-18th 
     const rvYear = document.getElementById('rvYear');
     const rvDesc = document.getElementById('rvDesc');
     const rvAdminMsg = document.getElementById('rvAdminMsg');
+    const rvStatusBadge = document.getElementById('rvStatusBadge');
 
     document.getElementById('yearNow').textContent = new Date().toLocaleString(undefined, { year: 'numeric' });
 
@@ -1328,6 +1341,12 @@ XYZ College, University of Delhi is organising anti ragging week from 12th-18th 
         rvCourse.textContent = d.course || '—';
         rvYear.textContent = d.year || '—';
         rvDesc.textContent = d.description || '—';
+        // Complaint status badge
+        const rawStatus = (d.status || 'pending').trim().toLowerCase();
+        const badgeClass = ['pending','in-progress','resolved','rejected'].includes(rawStatus) ? rawStatus : 'default';
+        const statusLabel = rawStatus.replace(/-/g, ' ').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+        rvStatusBadge.textContent = statusLabel;
+        rvStatusBadge.className = `complaint-badge ${badgeClass}`;
         rvAdminMsg.textContent = (d.adminResponse && d.adminResponse.trim())
           ? d.adminResponse
           : 'No response from admin yet. Please check again later.';
