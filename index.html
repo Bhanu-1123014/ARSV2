@@ -5,6 +5,7 @@
   <title>Anti-Ragging Mechanism</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="color-scheme" content="light dark" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet" />
   <style>
     :root {
       --bg: #0b1220;
@@ -442,8 +443,199 @@
     }
 
   </style>
+
+  <!-- ===== FUTURISTIC VISUAL ENHANCEMENTS ===== -->
+  <style>
+    /* Orbitron font for headings */
+    .panel h2, #welcome-title {
+      font-family: 'Orbitron', ui-sans-serif, sans-serif;
+      letter-spacing: 1px;
+    }
+
+    /* Particle canvas */
+    #particle-canvas {
+      position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    }
+
+    /* Welcome heading: subtle text glow */
+    #welcome-title {
+      position: relative; display: inline-block;
+      text-shadow: 0 0 40px rgba(59,130,246,.55), 0 0 80px rgba(59,130,246,.25);
+    }
+
+    /* Glitch layers */
+    #welcome-title::before, #welcome-title::after {
+      content: attr(data-text);
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%; pointer-events: none;
+    }
+    #welcome-title::before {
+      left: -2px;
+      color: #00d4ff;
+      clip-path: polygon(0 0, 100% 0, 100% 38%, 0 38%);
+      animation: glitch1 6s infinite 2s;
+    }
+    #welcome-title::after {
+      left: 2px;
+      color: #c084fc;
+      clip-path: polygon(0 62%, 100% 62%, 100% 100%, 0 100%);
+      animation: glitch2 6s infinite 2s;
+    }
+    @keyframes glitch1 {
+      0%,89%,100% { transform:translate(0); opacity:0 }
+      90% { transform:translate(-3px,-2px); opacity:.9 }
+      92% { transform:translate(3px,1px); opacity:0 }
+      94% { transform:translate(-2px,0); opacity:.7 }
+      96% { transform:translate(0); opacity:0 }
+    }
+    @keyframes glitch2 {
+      0%,87%,100% { transform:translate(0); opacity:0 }
+      88% { transform:translate(3px,2px); opacity:.9 }
+      90% { transform:translate(-2px,-1px); opacity:0 }
+      92% { transform:translate(2px,0); opacity:.6 }
+      94% { transform:translate(0); opacity:0 }
+    }
+
+    /* Scan line inside welcome */
+    .scan-line {
+      position: absolute !important; left: 0; right: 0; height: 2px; top: 0;
+      background: linear-gradient(90deg, transparent, rgba(0,212,255,.7), rgba(59,130,246,.9), rgba(0,212,255,.7), transparent);
+      box-shadow: 0 0 14px rgba(0,212,255,.6), 0 0 4px rgba(59,130,246,.8);
+      z-index: 4 !important; pointer-events: none;
+      animation: scanDown 5s linear infinite;
+    }
+    @keyframes scanDown {
+      0%   { top:0%;   opacity:0 }
+      5%   { opacity:1 }
+      95%  { opacity:.35 }
+      100% { top:100%; opacity:0 }
+    }
+
+    /* Floating neon data orbs */
+    .data-orb {
+      position: absolute !important; border-radius: 50%; pointer-events: none;
+      z-index: 2 !important;
+    }
+    .data-orb-1 {
+      width:9px; height:9px; background:#3b82f6;
+      box-shadow:0 0 18px #3b82f6, 0 0 36px rgba(59,130,246,.4);
+      top:18%; right:8%;
+      animation: orbFloat 7s ease-in-out infinite;
+    }
+    .data-orb-2 {
+      width:5px; height:5px; background:#a855f7;
+      box-shadow:0 0 12px #a855f7, 0 0 24px rgba(168,85,247,.4);
+      top:65%; left:6%;
+      animation: orbFloat 9s ease-in-out infinite reverse;
+    }
+    .data-orb-3 {
+      width:7px; height:7px; background:#22c55e;
+      box-shadow:0 0 14px #22c55e, 0 0 28px rgba(34,197,94,.4);
+      top:38%; right:14%;
+      animation: orbFloat 8s ease-in-out infinite 1.5s;
+    }
+    .data-orb-4 {
+      width:4px; height:4px; background:#00d4ff;
+      box-shadow:0 0 10px #00d4ff, 0 0 20px rgba(0,212,255,.5);
+      top:78%; right:22%;
+      animation: orbFloat 6s ease-in-out infinite 3s;
+    }
+    @keyframes orbFloat {
+      0%,100% { transform:translate(0,0) scale(1) }
+      33%      { transform:translate(-14px,-20px) scale(1.35) }
+      66%      { transform:translate(10px,-10px) scale(.8) }
+    }
+
+    /* Panel neon glow on hover */
+    .panel:hover {
+      box-shadow: 0 0 0 1px rgba(59,130,246,.45),
+                  0 0 28px rgba(59,130,246,.14),
+                  var(--shadow);
+    }
+
+    /* Animated neon glow on buttons */
+    button, .btn { overflow: hidden; }
+    button:hover, .btn:hover {
+      box-shadow: var(--btn-shadow-hover), 0 0 22px rgba(59,130,246,.45);
+      filter: saturate(115%) brightness(1.06);
+    }
+
+    /* Ripple on click */
+    .ripple {
+      position: absolute; border-radius: 50%;
+      background: rgba(255,255,255,.22);
+      transform: scale(0);
+      animation: rippleOut .65s linear forwards;
+      pointer-events: none;
+    }
+    @keyframes rippleOut { to { transform:scale(4); opacity:0 } }
+
+    /* Logo neon color-shift pulse */
+    .logo { animation: logoPulse 4s ease-in-out infinite; }
+    @keyframes logoPulse {
+      0%,100% { box-shadow:0 0 8px rgba(59,130,246,.65),  0 0 22px rgba(59,130,246,.28),  inset 0 0 0 2px rgba(255,255,255,.18) }
+      50%      { box-shadow:0 0 16px rgba(168,85,247,.85), 0 0 34px rgba(168,85,247,.42), inset 0 0 0 2px rgba(255,255,255,.18) }
+    }
+
+    /* Message card shimmer on hover */
+    .msg-card { position: relative; overflow: hidden; }
+    .msg-card::after {
+      content: ""; position: absolute; top: -50%; left: -60%;
+      width: 28%; height: 200%;
+      background: linear-gradient(105deg, transparent, rgba(255,255,255,.08), transparent);
+      transform: skewX(-20deg); pointer-events: none;
+    }
+    .msg-card:hover::after { left: 130%; transition: left .65s ease; }
+
+    /* Section heading neon text glow */
+    .panel h2 { text-shadow: 0 0 22px rgba(59,130,246,.28); }
+
+    /* Notice tag pulsing glow */
+    .notice-head .tag { animation: tagPulse 2.5s ease-in-out infinite; }
+    @keyframes tagPulse {
+      0%,100% { box-shadow: none }
+      50%      { box-shadow: 0 0 12px rgba(147,197,253,.65), 0 0 5px rgba(165,243,252,.4) }
+    }
+
+    /* Gallery image glow on hover */
+    .gallery img:hover {
+      box-shadow: 0 0 22px rgba(59,130,246,.38), 0 12px 26px rgba(0,0,0,.2);
+      border-color: rgba(59,130,246,.55);
+    }
+
+    /* Input focus neon glow */
+    input:focus, textarea:focus, select:focus {
+      box-shadow: 0 0 0 4px var(--ring), 0 0 18px rgba(59,130,246,.22) !important;
+    }
+
+    /* Notice card hover */
+    .notice:hover {
+      box-shadow: 0 0 18px rgba(59,130,246,.14), 0 10px 26px rgba(0,0,0,.18);
+    }
+
+    /* Footer neon gradient top border */
+    footer {
+      border-top: 1px solid transparent;
+      border-image: linear-gradient(90deg,
+        transparent,
+        rgba(59,130,246,.55),
+        rgba(168,85,247,.55),
+        rgba(59,130,246,.55),
+        transparent) 1;
+    }
+
+    /* Reduced-motion overrides */
+    @media (prefers-reduced-motion: reduce) {
+      #welcome-title::before, #welcome-title::after,
+      .data-orb-1, .data-orb-2, .data-orb-3, .data-orb-4,
+      .scan-line, .notice-head .tag, .logo { animation: none !important; }
+      .msg-card::after { display: none; }
+      #particle-canvas { display: none; }
+    }
+  </style>
 </head>
 <body>
+  <canvas id="particle-canvas" aria-hidden="true"></canvas>
   <header>
     <div class="wrap header-inner">
       <div class="brand">
@@ -477,6 +669,11 @@
             <a href="#antiRagging" class="btn">Know the Policy</a>
           </div>
         </div>
+        <div class="scan-line" aria-hidden="true"></div>
+        <div class="data-orb data-orb-1" aria-hidden="true"></div>
+        <div class="data-orb data-orb-2" aria-hidden="true"></div>
+        <div class="data-orb data-orb-3" aria-hidden="true"></div>
+        <div class="data-orb data-orb-4" aria-hidden="true"></div>
       </section>
 
       <!-- Messages: Principal first, then Proctor, then Staff Advisor -->
@@ -749,6 +946,99 @@ XYZ College, University of Delhi is organising anti ragging week from 12th-18th 
       <div>©  Anti‑Ragging Cell<span id="yearNow" style="display:none"></span></div>
     </div>
   </footer>
+
+  <!-- ===== FUTURISTIC VISUAL EFFECTS ===== -->
+  <script>
+    (function () {
+      // Set data-text attribute for CSS glitch effect
+      var title = document.getElementById('welcome-title');
+      if (title) title.dataset.text = title.textContent;
+
+      // Particle network canvas
+      var canvas = document.getElementById('particle-canvas');
+      if (!canvas || window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+      var ctx = canvas.getContext('2d');
+      var W, H, RAF;
+      var COUNT = 55;    // particle count: balanced for visual density vs. performance
+      var MAX_DIST = 115; // connection radius: keeps lines visible but avoids clutter
+      var COLORS = ['#3b82f6', '#a855f7', '#22c55e', '#00d4ff'];
+      var particles = [];
+
+      function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; }
+      var resizeTimer;
+      window.addEventListener('resize', function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(resize, 120);
+      });
+      resize();
+
+      function mkP() {
+        return {
+          x: Math.random() * W, y: Math.random() * H,
+          vx: (Math.random() - .5) * .35, vy: (Math.random() - .5) * .35,
+          r: Math.random() * 1.4 + .4,
+          op: Math.random() * .35 + .08,
+          color: COLORS[Math.floor(Math.random() * COLORS.length)]
+        };
+      }
+      for (var i = 0; i < COUNT; i++) particles.push(mkP());
+
+      function frame() {
+        ctx.clearRect(0, 0, W, H);
+        var i, j, p, q, dx, dy, d, a;
+        // connections
+        for (i = 0; i < particles.length; i++) {
+          p = particles[i];
+          for (j = i + 1; j < particles.length; j++) {
+            q = particles[j];
+            dx = p.x - q.x; dy = p.y - q.y;
+            d = Math.sqrt(dx * dx + dy * dy);
+            if (d < MAX_DIST) {
+              a = (1 - d / MAX_DIST) * 0.13;
+              ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y);
+              ctx.strokeStyle = 'rgba(59,130,246,' + a + ')';
+              ctx.lineWidth = .5; ctx.stroke();
+            }
+          }
+        }
+        // dots
+        for (i = 0; i < particles.length; i++) {
+          p = particles[i];
+          p.x += p.vx; p.y += p.vy;
+          if (p.x < -5 || p.x > W + 5 || p.y < -5 || p.y > H + 5) {
+            var n = mkP(); p.x = n.x; p.y = n.y; p.vx = n.vx; p.vy = n.vy;
+          }
+          ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = p.color; ctx.globalAlpha = p.op; ctx.fill();
+        }
+        ctx.globalAlpha = 1;
+        RAF = requestAnimationFrame(frame);
+      }
+      frame();
+
+      // Button ripple on click
+      document.addEventListener('click', function (e) {
+        var btn = e.target.closest('button, .btn');
+        if (!btn) return;
+        var rect = btn.getBoundingClientRect();
+        var size = Math.max(btn.offsetWidth, btn.offsetHeight) * 1.6;
+        var s = document.createElement('span');
+        s.className = 'ripple';
+        s.style.position = 'absolute';
+        s.style.borderRadius = '50%';
+        s.style.background = 'rgba(255,255,255,.22)';
+        s.style.width = size + 'px';
+        s.style.height = size + 'px';
+        s.style.left = (e.clientX - rect.left - size / 2) + 'px';
+        s.style.top  = (e.clientY - rect.top  - size / 2) + 'px';
+        s.style.transform = 'scale(0)';
+        s.style.animation = 'rippleOut .65s linear forwards';
+        s.style.pointerEvents = 'none';
+        btn.appendChild(s);
+        s.addEventListener('animationend', function () { s.remove(); });
+      });
+    })();
+  </script>
 
   <script type="module">
     // Firebase Setup (using your provided config)
