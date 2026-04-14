@@ -1347,9 +1347,8 @@ XYZ College, University of Delhi is organising anti ragging week from 12th-18th 
         const statusLabel = rawStatus.replace(/-/g, ' ').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
         rvStatusBadge.textContent = statusLabel;
         rvStatusBadge.className = `complaint-badge ${badgeClass}`;
-        rvAdminMsg.textContent = (d.adminResponse && d.adminResponse.trim())
-          ? d.adminResponse
-          : 'No response from admin yet. Please check again later.';
+        const adminMsg = (d.adminMessage && d.adminMessage.trim()) || (d.adminResponse && d.adminResponse.trim());
+        rvAdminMsg.textContent = adminMsg || 'No response from admin yet. Please check again later.';
         revisitResult.style.display = 'block';
         showStatus(revisitStatus, 'Loaded.', 'success');
         setTimeout(() => hideStatus(revisitStatus), 1200);
